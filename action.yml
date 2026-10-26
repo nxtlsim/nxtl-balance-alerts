@@ -1,0 +1,34 @@
+name: "NXTL Balance Alerts"
+description: "Alert via Telegram, Slack or email when an NXTL Business pooled balance drops below a threshold."
+author: "NXTL eSIM"
+branding:
+  icon: "bell"
+  color: "blue"
+inputs:
+  threshold:
+    description: "Alert when balance is below this amount (account currency)"
+    default: "20"
+  balance-field:
+    description: "Optional dot path to the balance value in the /balance response"
+    default: ""
+  fail-on-low:
+    description: "Fail the workflow run when the balance is low"
+    default: "false"
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+    - shell: bash
+      run: pip install --quiet -r "${{ github.action_path }}/requirements.txt"
+    - shell: bash
+      env:
+        NXTL_THRESHOLD: ${{ inputs.threshold }}
+        NXTL_BALANCE_FIELD: ${{ inputs.balance-field }}
+      run: |
+        set +e
+        python "${{ github.action_path }}/nxtl_balance_alerts.py"
+        code=$?
+        if [ "$code" = "2" ] && [ "${{ inputs.fail-on-low }}" != "true" ]; then exit 0; fi
+        exit $code
