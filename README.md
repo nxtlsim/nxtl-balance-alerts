@@ -69,6 +69,7 @@ Keep `NXTL_API_KEY` in secrets only. Never commit it or put it in client-side co
 - NXTL eSIM: https://nxtlsim.com
 - NXTL for Business: https://nxtlsim.com/for-business/
 - API reference: https://nxtlsim.com/nxtl-api-reference/
+- NXTL eSIM SDKs (TypeScript and Python): [repo](https://github.com/nxtlsim/nxtl-esim-sdk) · [npm](https://www.npmjs.com/package/@nxtlsim/esim-sdk) · [PyPI](https://pypi.org/project/nxtl-esim/)
 
 ## License
 MIT © NXTL eSIM. This repository is maintained by NXTL eSIM.
